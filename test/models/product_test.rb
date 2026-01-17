@@ -5,19 +5,19 @@ class ProductTest < ActiveSupport::TestCase
 
   test "product is not valid without a unique title - i18n" do
     product = Product.new(
-      title: product[:pragprog].title,
+      title: products(:pragprog).title,
       description: "yyy",
       price: 1
     )
-  product.attach.(
-      io: File.open("test/fixtures/files/lorem.jpg"),
-      filename: "lorem.jpg",
-      content_type: "image/jpeg"
-    )
+    product.image.attach(
+        io: File.open("test/fixtures/files/lorem.jpg"),
+        filename: "lorem.jpg",
+        content_type: "image/jpeg"
+      )
 
-  assert product.invalid?
-  assert_equal [ I18n.translate("errors.messages.taken") ], product.errors[:title]
-end
+    assert product.invalid?
+    assert_equal [ I18n.translate("errors.messages.taken") ], product.errors[:title]
+  end
 
   test "product attributes must not be empty" do
     product = Product.new
@@ -59,7 +59,7 @@ end
     price: 1
     ).tap do |product|
         product.image.attach(
-          io: File.open("db/images/#{filename}"),
+          io: File.open("test/fixtures/files/#{filename}"),
           filename:,
           content_type:
         )
