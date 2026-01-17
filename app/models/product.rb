@@ -2,6 +2,7 @@ class Product < ApplicationRecord
   has_one_attached :image
   after_commit -> { broadcast_refresh_later_to "products" }
   validates :title, :description, :image, presence: true
+  validates :title, length: { minimum: 10, too_short: "length must be at least 10 characters long"}
   validates :price, numericality: { greater_than_or_equal_to: 0.01 }
   validate :acceptable_image
   
