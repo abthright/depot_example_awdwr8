@@ -34,6 +34,7 @@
         <p class="p-2 text-white">
           <%= Time.current.strftime("%H:%M:%S") %>
         </p>
+        <p class="text-white"><%= session[:counter]>5 ? "#{pluralize(session[:counter], " session")}" : "" %></p>
         <ul class="text-gray-300 leading-8">
           <li><a href="/">Home</a></li>
           <li><a href="/questions">Questions</a></li>
